@@ -6,9 +6,9 @@ const app = express();
 
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
-//app.use(express.json());
+app.use(express.json());
 
-exports.json = bodyParser.json;
+//exports.json = bodyParser.json;
 
 app.use((req, res, next) => {
   console.log('URL = ', req.url);
@@ -26,6 +26,36 @@ app.use((req, res, next) => {
 /*app.all('/test', (req, res) => {
     res.status(200).json({ message: 'KKKKKK'});
   })*/
+
+  app.post('/sum', (req, res) => {
+    sum=req.body.a + req.body.b
+    res.status(200).json({ sum});
+  })
+
+  app.post('/reverseCase', (req, res)=>{
+    str=req.body.str
+    reversed='';
+    for (let key in str) {
+        reversed += str[key] === str[key].toUpperCase() ? str[key].toLowerCase() : str[key].toUpperCase();
+    }
+    res.status(200).json({reversed})
+  })
+
+  app.post('/arrayReverse',(req,res)=>{
+    arrInput=req.body.array
+    arr=[]
+    for (let i in arrInput){
+      arr[i]  = arrInput[arrInput.length-i-1] ;
+    }
+    res.status(200).json({arr})
+  })
+
+  app.get('/arrayReverse',(req,res)=>{
+    arr=req.body.array
+    arr.reverse()
+    res.status(200).json({arr})
+
+  })
 
   app.get('/test', (req, res) => {
     res.status(200).json({ message: 'got'});
