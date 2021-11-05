@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
 
 const { sequelize } = require("../index");
-const Token = require('./Token.model');
-const User = require('./Users.model');
+// const Token = require('./Token.model');
+//const User = require('./Users.model');
 
 class TODO extends Sequelize.Model {}
 
@@ -11,10 +11,6 @@ TODO.init(
     id: {
       type: Sequelize.DataTypes.UUID,
       primaryKey: true,
-      defaultValue: Sequelize.DataTypes.UUIDV4
-    },
-    user_id: {
-      type: Sequelize.DataTypes.UUID,
       defaultValue: Sequelize.DataTypes.UUIDV4
     },
     title: {
