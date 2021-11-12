@@ -1,4 +1,4 @@
-const Sequelize = require('sequelize');
+const Sequelize = require("sequelize");
 
 const { sequelize } = require("../index");
 // const Token = require('./Token.model');
@@ -11,14 +11,16 @@ TODO.init(
     id: {
       type: Sequelize.DataTypes.UUID,
       primaryKey: true,
-      defaultValue: Sequelize.DataTypes.UUIDV4
+      defaultValue: Sequelize.DataTypes.UUIDV4,
     },
     title: {
       type: Sequelize.STRING,
-      defaultValue: 'Title',
+      // defaultValue: "Title",
+      allowNull: false,
     },
     description: {
       type: Sequelize.STRING,
+      defaultValue: "Description",
     },
     isCompleted: {
       type: Sequelize.BOOLEAN,
@@ -31,6 +33,5 @@ TODO.init(
   },
   { sequelize: sequelize, underscored: true, modelName: "todo" }
 );
-
 
 module.exports = TODO;

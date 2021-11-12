@@ -7,10 +7,14 @@ const { asyncHandler } = require("../middlewares/middlewares");
 const { Op } = require("sequelize");
 
 const router = Router();
-
+// router.use(function(req, res, next) {
+//   // set the header you wish to append
+//   req.headers.token = req.userId;
+//   next();
+// });
 
 function initRoutes() {
-  router.post("/registration",  asyncHandler(registration));
+  router.post("/registration", asyncHandler(registration));
   router.post("/login", asyncHandler(login));
 }
 
@@ -31,7 +35,9 @@ async function registration(req, res, next) {
 }
 
 async function login(req, res, next) {
-  
+  // console.log("req.headers[]")
+  // console.log(req.headers["token"])
+  // console.log("req.headers[]")
   let user = await User.findOne({
     where: {
       login: req.body.login,
@@ -39,14 +45,17 @@ async function login(req, res, next) {
     },
   });
 
-
   if (!user) throw new ErrorResponse("Wrong login or password!", 400);
   let token = await Token.create({
     userId: user.id,
     value: nanoid(128),
   });
 
-  console.log(req.headers)
+  // res.setHeader("x-access-token", token.value);
+
+  req.userId = token.userId;
+  // req.headers.token = token.value;
+
   res.status(200).json({
     accessToken: token.value,
   });

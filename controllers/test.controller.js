@@ -2,6 +2,13 @@ const { Router } = require('express');
 const ErrorResponse = require('../classes/error-response');
 const { asyncHandler, syncHandler } = require('../middlewares/middlewares');
 
+app.use((req, res, next) => {
+    res.append('Access-Control-Allow-Origin', ['*']);
+    res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.append('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+});
+
 const router = Router();
 
 function initRoutes() {

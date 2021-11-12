@@ -10,8 +10,8 @@ const initDB = async () => {
   try {
     await sequelize.authenticate();
     await sequelize.sync();
-    // await sequelizeInstance.dropSchema("public", {});
-    // await sequelizeInstance.createSchema("public", {});
+    // await sequelize.dropSchema("public", {});
+    // await sequelize.createSchema("public", {});
     console.log("Sequelize was initialized");
   } catch (error) {
     console.log(error);

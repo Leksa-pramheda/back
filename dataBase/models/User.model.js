@@ -24,6 +24,7 @@ User.init(
     },
     email: {
         type: Sequelize.STRING,
+        unique: true,
         allowNull: false,
     },
     name: {
@@ -34,8 +35,8 @@ User.init(
 );
 
 User.hasMany(Token);
-// Token.belongsTo(User, {foreignKey: userid});
+Token.belongsTo(User, {foreignKey: "userId",});
 User.hasMany(TODO);
-// TODO.belongsTo(User, {foreignKey: userid});
+TODO.belongsTo(User, {foreignKey: "userId",});
 
 module.exports = User;
