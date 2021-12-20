@@ -20,8 +20,8 @@ async function getUserInfo(req, res, next) {
 }
 
 async function updateUserInfo(req, res, next) {
-  let user = await User.update(req.body, {
-    where: { id: req.userId },
+  let user = await Employee.update(req.body, {
+    where: { id_employee: req.userId },
     returning: true,
   });
 
@@ -37,26 +37,6 @@ async function userLogout(req, res, next) {
 
   res.status(200).json({ message: "Logged out" });
 
-  //   res.setHeader('Access-Control-Allow-Origin', '*');
-  //   // response.setHeader("Access-Control-Allow-Methods", "*");
-  // res.setHeader('Access-Control-Allow-Headers', 'origin, content-type, accept, x-access-token');
-  //   res.setHeader("x-access-token", "123");
-  //   //res.writeHead(200,"x-access-token")
-  //   console.log(req.headers);
-
-  // let token = req.headers["x-access-token"];
-  // console.log("---------",token);
-  // console.log("*****",res.headers);
-  // // token = res.headers["x-access-token"];
-  // // console.log("*** ",token);
-  // // let token = await Token.findOne({
-  // //     where: {
-  // //       value: req.params.id,
-  // //     },
-  // //   });
-
-  // //await token.destroy();
-  // next();
 }
 
 initRoutes();

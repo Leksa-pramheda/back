@@ -1,15 +1,9 @@
 const express = require('express');
 const http = require('http');
 const cors = require('cors');
-<<<<<<< HEAD:index1.js
 const { initDB } = require('./dataBase/index');
 const { errorHandler, notFound} = require('./middlewares/middlewares');
 const apiTodosRouter = require('./controllers/api-todos.controller');
-=======
-const { initDB } = require('./dataBase/index0');
-const { errorHandler, notFound} = require('./middlewares/middlewares');
-const apiTasksRouter = require('./controllers/api-tasks.controller');
->>>>>>> 57938b9ea579279c2087d414e1f3bfb5e11d45c8:index.js
 const apiUserRouter = require('./controllers/api-user.contoller');
 const apiAuthRouter = require('./controllers/api-auth.controller')
 
