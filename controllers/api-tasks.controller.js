@@ -110,9 +110,101 @@ async function getToDos(req, res, next) {
 }
 
 async function getToDoById(req, res, next) {
+  let employeeList = [];
+  employeeList = await Employee.findAll({
+    where: {
+      employee_status: "Сотрудник",
+    },
+    raw: true,
+  });
+
+  let employees = [];
+  employees = await Employee.findAll({
+    raw: true,
+  });
+
+  let stat = await Employee.findOne({
+    where: {
+      id_employee: req.userId,
+    },
+  });
+  let todoList = [];
+  if (stat.employee_status === "Сотрудник") {
+    todoList = await Tasks.findOne({
+      where: {
+        id_task: req.params.id,
+        idExecutor: req.userId,
+      },
+    });
+  } else if (stat.employee_status === "Менеджер") {
+    let empl = [];
+    for (let i in employeeList) {
+      Object.keys(employeeList[i]).forEach((key) => {
+        if (key === "id_employee") {
+          empl.push(employeeList[i][key]); // 'Bob', 47
+        }
+      });
+    }
+
+    console.log(employeeList);
+    console.log(empl);
+    let todoList1 = await Tasks.findOne({
+      where: {
+        idExecutor: {
+          [Op.in]: empl,
+        },
+        idAuthor: req.userId,
+        id_task: req.params.id,
+      },
+    });
+    let todoList2 = await Tasks.findOne({
+      where: {
+        [Op.and]: [
+          {
+            idAuthor: req.userId,
+            idExecutor: req.userId,
+          },
+        ],
+        id_task: req.params.id,
+      },
+    });
+    if (todoList1 === []) {
+      todoList = todoList2;
+    } else {
+      todoList = todoList1;
+    }
+    todoList.forEach((item) => {
+      let Author = employees[item.idAuthor - 1];
+      let Executor = employees[item.idExecutor - 1];
+      console.log(employees);
+      console.log(item.idAuthor);
+      console.log(employees[item.idAuthor - 1]);
+      item.idAuthor =
+        Author.last_name_employee +
+        " " +
+        Author.name_employee +
+        " " +
+        Author.patronymic_employee;
+      item.idExecutor =
+        Executor.last_name_employee +
+        " " +
+        Executor.name_employee +
+        " " +
+        Executor.patronymic_employee;
+    });
+  } else if (stat.employee_status === "Администратор") {
+    todoList = await Tasks.findOne({
+      where: {
+        id_task: req.params.id,
+      },
+    });
+  }
+
+  res.status(200).json({ todoList });
+
   const todo = await Tasks.findOne({
     where: {
-      id: req.params.id,
+      id_task: req.params.id,
       employeeId: req.userId,
     },
   });
