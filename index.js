@@ -1,9 +1,9 @@
 const express = require('express');
 const http = require('http');
 const cors = require('cors');
-const { initDB } = require('./dataBase/index0');
+const { initDB } = require('./dataBase/index');
 const { errorHandler, notFound} = require('./middlewares/middlewares');
-const apiTasksRouter = require('./controllers/api-tasks.controller');
+const apiTodosRouter = require('./controllers/api-todos.controller');
 const apiUserRouter = require('./controllers/api-user.contoller');
 const apiAuthRouter = require('./controllers/api-auth.controller')
 

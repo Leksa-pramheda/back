@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const Employee = require("../dataBase/models/Employee.model");
+const User = require("../dataBase/models/User.model");
 const Token = require("../dataBase/models/Token.model");
 const { asyncHandler, requireToken } = require("../middlewares/middlewares");
 
@@ -14,7 +14,7 @@ function initRoutes() {
 }
 
 async function getUserInfo(req, res, next) {
-  let user = await Employee.findByPk(req.userId);
+  let user = await User.findByPk(req.userId);
 
   res.status(200).json(user);
 }
