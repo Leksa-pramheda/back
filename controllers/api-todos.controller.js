@@ -69,7 +69,7 @@ async function patchToDo(req, res, next) {
   if (!todo) throw new ErrorResponse("No todos found!", 404);
 
   // console.log(req.body);
-  todo = await ToDo.update(req.body, (returning = true));
+  todo = await todo.update(req.body, {returning : true});
   // console.log(req.body);
   // todo = await ToDo.findByPk(req.params.id);
 

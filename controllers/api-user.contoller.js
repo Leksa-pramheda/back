@@ -1,18 +1,9 @@
 const { Router } = require("express");
-const ErrorResponse = require("../classes/error-response");
 const User = require("../dataBase/models/User.model");
 const Token = require("../dataBase/models/Token.model");
 const { asyncHandler, requireToken } = require("../middlewares/middlewares");
 
-// module.exports = function (app) {
-//   app.use(function (req, res, next) {
-//     res.header(
-//       "Access-Control-Allow-Headers",
-//       "x-access-token, Origin, Content-Type, Accept"
-//     );
-//     next();
-//   });
-// };
+
 
 const router = Router();
 
@@ -24,9 +15,6 @@ function initRoutes() {
 
 async function getUserInfo(req, res, next) {
   let user = await User.findByPk(req.userId);
-  // if (!user) {
-  //   throw new ErrorResponse("No users found!", 404);
-  // }
 
   res.status(200).json(user);
 }
