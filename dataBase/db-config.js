@@ -2,6 +2,6 @@ module.exports = {
     host: "localhost",
     username: "alexa",
     password: "Leksa@25",
-    database: "js",
+    database: "test-practices",
     dialect: "postgres",
   };

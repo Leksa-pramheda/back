@@ -1,14 +1,11 @@
 const express = require('express');
 const http = require('http');
 const cors = require('cors');
-const { initDB } = require('./dataBase/index');
-const ErrorResponse = require('./classes/error-response');
+const { initDB } = require('./dataBase/index0');
 const { errorHandler, notFound} = require('./middlewares/middlewares');
-
-const apiTodosRouter = require('./controllers/api-todos.controller');
+const apiTasksRouter = require('./controllers/api-tasks.controller');
 const apiUserRouter = require('./controllers/api-user.contoller');
 const apiAuthRouter = require('./controllers/api-auth.controller')
-//const testRouter = require('./controllers/test.controller');
 
 const app = express();
 initDB();
@@ -25,17 +22,12 @@ app.use((req, res, next) => {
   console.log('IsSecure = ', req.secure);
   console.log('BODY', req.body);
   console.log('QUERY', req.query);
-  //console.log('body ',req.body.a)
-
   next();
 });
 
-
-// require("./controllers/apiTodosRouter")(app)
 app.use('/api/auth', apiAuthRouter);
 app.use('/api/users', apiUserRouter);
-app.use('/api/todos', apiTodosRouter);
-//app.use('/test', testRouter);
+app.use('/api/tasks', apiTasksRouter);
 
 app.use(notFound);
 app.use(errorHandler);
