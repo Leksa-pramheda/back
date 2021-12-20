@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-const { sequelize } = require("../index");
+const { sequelize } = require("../index0");
 class Token extends Sequelize.Model {}
 
 Token.init(
