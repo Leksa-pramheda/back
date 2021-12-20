@@ -93,6 +93,7 @@ async function deleteToDoById(req, res, next) {
       userId: req.userId,
     },
   });
+  
 
   if (!todo) throw new ErrorResponse("No todos found!", 404);
 
